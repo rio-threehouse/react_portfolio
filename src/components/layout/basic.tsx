@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Drawer } from '@material-ui/core';
-import { FolderOpen as FolderIcon } from '@material-ui/icons';
+import { NavList } from '../advanced/nav-list';
+import { AppBar, Toolbar, Typography, Drawer } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#4e454a',
       color: '#ffffff'
     },
-    listItemIcon: {
-      color: '#ffffff',
-      minWidth: 45,
-    },
     toolbar: theme.mixins.toolbar,
     content: {
       // 要素の余白がある場合の伸び率
@@ -40,13 +36,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }))
 
- const sampleListData = [
-   'Hooksチュートリアル',
-   'sample_title_2',
-   'sample_title_3',
-   'sample_title_4',
- ]
-
  const Content: React.SFC = ({children}) => (
    <div>
      <>{children}</>
@@ -55,23 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const BasicLayout: React.FC = props => {
   const classes = useStyles()
-
-  const navList = (
-    <div>
-      <div className={classes.toolbar} />
-      <List >
-        {sampleListData.map((text, index) => (
-          <ListItem 
-            button 
-            key={index}
-          >
-            <ListItemIcon className={classes.listItemIcon}><FolderIcon /></ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  )
 
   return(
     <div className={classes.root}>
@@ -91,7 +63,8 @@ export const BasicLayout: React.FC = props => {
         className={classes.drawer}
         classes={{ paper: classes.drawerPaper }}
       >
-        {navList}
+        <div className={classes.toolbar} />
+        <NavList />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

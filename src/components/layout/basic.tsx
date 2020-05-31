@@ -1,9 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, Drawer } from '@material-ui/core';
-import { AccessAlarm as AccessAlarmIcon, ThreeDRotation } from '@material-ui/icons';
+import { AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Drawer } from '@material-ui/core';
+import { FolderOpen as FolderIcon } from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-const drawerWidth = 300;
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
     appBar : {
       marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
-      color: '#696969',
+      alignItems: 'center',
+      color: '#4e454a',
       backgroundColor: '#e6e6fa',
     },
     drawer: {
@@ -22,9 +23,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
+      backgroundColor: '#4e454a',
+      color: '#ffffff'
     },
-    listItem: {
-      paddingLeft: 70,
+    listItemIcon: {
+      color: '#ffffff',
+      minWidth: 45,
     },
     toolbar: theme.mixins.toolbar,
     content: {
@@ -37,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }))
 
  const sampleListData = [
-   'sample_title_1',
+   'Hooksチュートリアル',
    'sample_title_2',
    'sample_title_3',
    'sample_title_4',
@@ -60,21 +64,8 @@ export const BasicLayout: React.FC = props => {
           <ListItem 
             button 
             key={index}
-            className={classes.listItem}
           >
-            <ListItemIcon>{index % 2 === 0 ? <AccessAlarmIcon /> : <ThreeDRotation />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <List>
-        {sampleListData.map((text, index) => (
-          <ListItem 
-            button 
-            key={index}
-            className={classes.listItem}
-          >
-            <ListItemIcon>{index % 2 === 0 ? <AccessAlarmIcon /> : <ThreeDRotation />}</ListItemIcon>
+            <ListItemIcon className={classes.listItemIcon}><FolderIcon /></ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}

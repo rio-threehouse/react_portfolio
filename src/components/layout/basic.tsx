@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavList } from '../advanced/nav-list';
-import { AppBar, Toolbar, Typography, Drawer, Hidden, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { Menu as MenuIcon} from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { NavDrawer } from '../advanced/nav-drawer';
 
 const drawerWidth = 240;
 
@@ -28,23 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
-    drawer: {
-      [theme.breakpoints.up('sm')]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    drawerPaper: {
-      width: drawerWidth,
-      backgroundColor: '#4e454a',
-      color: '#ffffff'
-    },
     toolbar: theme.mixins.toolbar,
     content: {
-      // 要素の余白がある場合の伸び率
       flexGrow: 1,
       height: '100vh',
-      // スクロール表示
       overflow: 'auto',
     },
   }))
@@ -59,7 +46,7 @@ export const BasicLayout: React.FC = props => {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
-  const handleDrawerOppen = () => setOpen(true)
+  const handleDrawerOpen = () => setOpen(true)
   const handleDrawerClose = () => setOpen(false)
 
   return(
@@ -70,7 +57,7 @@ export const BasicLayout: React.FC = props => {
       >
         <IconButton
           color="inherit"
-          onClick={handleDrawerOppen}
+          onClick={handleDrawerOpen}
           className={classes.menuButton}
         >
           <MenuIcon />
@@ -83,31 +70,11 @@ export const BasicLayout: React.FC = props => {
         </Toolbar>
       </AppBar>
 
-      <Hidden smUp implementation="css">
-        <Drawer
-          variant="temporary"
-          onClose={handleDrawerClose}
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.toolbar} />
-          <NavList />
-        </Drawer>
-      </Hidden>
+      <NavDrawer 
+        onClose={handleDrawerClose}
+        open={open}
+      />
 
-      <Hidden xsDown implementation="css">
-        <Drawer
-          variant="permanent"
-          open={true}
-          className={classes.drawer}
-          classes={{ paper: classes.drawerPaper }}
-        >
-          <div className={classes.toolbar} />
-          <NavList />
-        </Drawer>
-      </Hidden>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Content children={props.children} />

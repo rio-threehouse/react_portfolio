@@ -55,9 +55,9 @@ export const HooksTutorial: React.FC = () => {
 
         {/* 引数ありのアロー関数をeventhandleに渡す */}
         <div>{text}</div>
-        {buttonTexts.map((buttonText) => {
+        {buttonTexts.map((buttonText, index) => {
           return(
-            <button onClick={() => changeText(buttonText.text)}>
+            <button key={index} onClick={() => changeText(buttonText.text)}>
               {buttonText.text}
             </button>
           )})

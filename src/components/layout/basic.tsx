@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavList } from '../advanced/nav-list';
-import { AppBar, Toolbar, Typography, Drawer } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Drawer, Hidden, IconButton } from '@material-ui/core';
+import { Menu as MenuIcon} from '@material-ui/icons';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -11,15 +12,27 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     appBar : {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+      },
       alignItems: 'center',
       color: '#4e454a',
       backgroundColor: '#e6e6fa',
     },
+    menuButton: {
+      position: 'absolute',
+      top: 5,
+      left: 10,
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
     drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+      [theme.breakpoints.up('sm')]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
     },
     drawerPaper: {
       width: drawerWidth,
@@ -44,6 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const BasicLayout: React.FC = props => {
   const classes = useStyles()
+  const [open, setOpen] = React.useState(false)
+
+  const handleDrawerOppen = () => setOpen(true)
+  const handleDrawerClose = () => setOpen(false)
 
   return(
     <div className={classes.root}>
@@ -51,21 +68,46 @@ export const BasicLayout: React.FC = props => {
         position="fixed" 
         className={classes.appBar}
       >
+        <IconButton
+          color="inherit"
+          onClick={handleDrawerOppen}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+
         <Toolbar>
           <Typography variant="h6">
             React Protfolio
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer 
-        variant="permanent" 
-        open={true}
-        className={classes.drawer}
-        classes={{ paper: classes.drawerPaper }}
-      >
-        <div className={classes.toolbar} />
-        <NavList />
-      </Drawer>
+
+      <Hidden smUp implementation="css">
+        <Drawer
+          variant="temporary"
+          onClose={handleDrawerClose}
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.toolbar} />
+          <NavList />
+        </Drawer>
+      </Hidden>
+
+      <Hidden xsDown implementation="css">
+        <Drawer
+          variant="permanent"
+          open={true}
+          className={classes.drawer}
+          classes={{ paper: classes.drawerPaper }}
+        >
+          <div className={classes.toolbar} />
+          <NavList />
+        </Drawer>
+      </Hidden>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Content children={props.children} />

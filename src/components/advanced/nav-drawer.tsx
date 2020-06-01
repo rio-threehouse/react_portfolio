@@ -15,19 +15,18 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
       backgroundColor: '#4e454a',
-      color: '#ffffff'
     },
     toolbar: theme.mixins.toolbar,
   }
 ))
 
 export type Props = {
-  onClose: () => void,
+  drawerClose: () => void,
   open: boolean
 }
 
 export const NavDrawer: React.FC<Props> = ({
-  onClose,
+  drawerClose,
   open,
 }) => {
   const classes = useStyles()
@@ -37,14 +36,14 @@ export const NavDrawer: React.FC<Props> = ({
       <Hidden smUp implementation="css">
       <Drawer
         variant="temporary"
-        onClose={onClose}
+        onClose={drawerClose}
         open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.toolbar} />
-        <NavList />
+        <NavList onClick={drawerClose} />
       </Drawer>
     </Hidden>
 

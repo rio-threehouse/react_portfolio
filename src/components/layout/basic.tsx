@@ -71,7 +71,7 @@ export const BasicLayout: React.FC = props => {
       </AppBar>
 
       <NavDrawer 
-        onClose={handleDrawerClose}
+        drawerClose={handleDrawerClose}
         open={open}
       />
 

@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     appBar : {
+      alignItems: 'center',
+      color: '#4e454a',
+      backgroundColor: '#e6e6fa',
       [theme.breakpoints.up('sm')]: {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
       },
-      alignItems: 'center',
-      color: '#4e454a',
-      backgroundColor: '#e6e6fa',
     },
     menuButton: {
       position: 'absolute',

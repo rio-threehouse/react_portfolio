@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { HeaderBar } from '../../advanced/header-bar';
 
 export const HooksTutorial: React.FC = () => {
   const history = useHistory()
@@ -33,6 +34,8 @@ export const HooksTutorial: React.FC = () => {
 
   return(
     <>
+      <HeaderBar title={'Hooksチュートリアル'} backPath="/" />
+
       <div>
         <p>You clicked { count } times</p>
         <button onClick={() => setCount(count + 1)}>
@@ -40,9 +43,6 @@ export const HooksTutorial: React.FC = () => {
         </button>
         <button onClick={() => setChangeTitle(!changeTitle)}>
           Change Title!
-        </button>
-        <button onClick={() => history.goBack()}>
-          Go back
         </button>
       </div>
 
